@@ -22,7 +22,8 @@ public class CoursApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		repositoryRestConfiguration.exposeIdsFor(Cours.class, Matiere.class);
+		repositoryRestConfiguration.exposeIdsFor(Cours.class);
+		repositoryRestConfiguration.exposeIdsFor(Matiere.class);
 	}
 
 }
