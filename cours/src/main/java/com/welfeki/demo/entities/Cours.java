@@ -1,12 +1,10 @@
 package com.welfeki.demo.entities;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 public class Cours {
@@ -14,6 +12,7 @@ public class Cours {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String title;
     private String content;
     private Integer duration;
@@ -23,18 +22,24 @@ public class Cours {
     @ManyToOne
     private Matiere matiere;
 
-    public Cours() {
-        super();
-    }
+    @OneToOne
+    private Image image;
+
+    @OneToMany(mappedBy = "cours", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonManagedReference // Manages the JSON serialization for related images
+    private List<Image> images;
+
+    public Cours() {}
 
     public Cours(String title, String content, Integer duration, String videoUrl, LocalDateTime createdDate) {
-        super();
         this.title = title;
         this.content = content;
         this.duration = duration;
         this.videoUrl = videoUrl;
         this.createdDate = createdDate;
     }
+
+    // Getters and Setters
 
     public Long getId() {
         return id;
@@ -90,6 +95,22 @@ public class Cours {
 
     public void setMatiere(Matiere matiere) {
         this.matiere = matiere;
+    }
+
+    public Image getImage() {
+        return image;
+    }
+
+    public void setImage(Image image) {
+        this.image = image;
+    }
+
+    public List<Image> getImages() {
+        return images;
+    }
+
+    public void setImages(List<Image> images) {
+        this.images = images;
     }
 
     @Override
