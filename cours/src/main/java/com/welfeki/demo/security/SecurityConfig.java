@@ -29,9 +29,9 @@ public class SecurityConfig {
 						.requestMatchers(HttpMethod.POST, "/api/cours/**", "/api/matieres/**").hasAuthority("ADMIN")
 						.requestMatchers(HttpMethod.PUT, "/api/cours/**", "/api/matieres/**").hasAuthority("ADMIN")
 						.requestMatchers(HttpMethod.DELETE, "/api/cours/**", "/api/matieres/**").hasAuthority("ADMIN")
-						.requestMatchers(HttpMethod.POST, "/api/image/**").hasAuthority("ADMIN")
-						.requestMatchers(HttpMethod.OPTIONS, "/api/image/**").permitAll()
+						.requestMatchers(HttpMethod.POST, "/api/image/uploadImageCours/**").hasAuthority("ADMIN")
 						.requestMatchers(HttpMethod.GET, "/api/image/**").hasAnyAuthority("ADMIN", "USER")
+						.requestMatchers(HttpMethod.POST, "/api/image/upload").hasAuthority("ADMIN")
 						.anyRequest().authenticated())
 				.addFilterBefore(new JWTAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class);
 

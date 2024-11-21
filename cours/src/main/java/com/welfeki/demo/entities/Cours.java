@@ -22,11 +22,9 @@ public class Cours {
     @ManyToOne
     private Matiere matiere;
 
-    @OneToOne
-    private Image image;
-
-    @OneToMany(mappedBy = "cours", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JsonManagedReference // Manages the JSON serialization for related images
+    /*@OneToOne
+   private Image image;*/
+    @OneToMany (mappedBy = "cours")
     private List<Image> images;
 
     public Cours() {}
@@ -44,6 +42,7 @@ public class Cours {
     public Long getId() {
         return id;
     }
+
 
     public void setId(Long id) {
         this.id = id;
@@ -97,14 +96,6 @@ public class Cours {
         this.matiere = matiere;
     }
 
-    public Image getImage() {
-        return image;
-    }
-
-    public void setImage(Image image) {
-        this.image = image;
-    }
-
     public List<Image> getImages() {
         return images;
     }
@@ -112,6 +103,7 @@ public class Cours {
     public void setImages(List<Image> images) {
         this.images = images;
     }
+
 
     @Override
     public String toString() {
@@ -125,4 +117,5 @@ public class Cours {
                 ", matiere=" + matiere +
                 '}';
     }
+
 }

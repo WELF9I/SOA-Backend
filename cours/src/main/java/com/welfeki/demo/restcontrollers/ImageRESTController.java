@@ -16,54 +16,46 @@ import java.util.List;
 public class ImageRESTController {
 
     @Autowired
-    ImageService imageService;
+    ImageService  imageService ;
 
-    // Upload a new image
-    @RequestMapping(value = "/upload", method = RequestMethod.POST)
-    public Image uploadImage(@RequestParam("image") MultipartFile file) throws IOException {
-        return imageService.uploadImage(file);
+
+    @RequestMapping(value = "/upload" , method = RequestMethod.POST)
+    public Image uploadImage(@RequestParam("image")MultipartFile file) throws IOException {
+        return imageService.uplaodImage(file);
     }
-
-    // Get image details by ID
-    @RequestMapping(value = "/get/info/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/get/info/{id}" , method = RequestMethod.GET)
     public Image getImageDetails(@PathVariable("id") Long id) throws IOException {
-        return imageService.getImageDetails(id);
+        return imageService.getImageDetails(id) ;
     }
-
-    // Load image by ID
-    @RequestMapping(value = "/load/{id}", method = RequestMethod.GET)
-    public ResponseEntity<byte[]> getImage(@PathVariable("id") Long id) throws IOException {
+    @RequestMapping(value = "/load/{id}" , method = RequestMethod.GET)
+    public ResponseEntity<byte[]> getImage(@PathVariable("id") Long id) throws IOException
+    {
         return imageService.getImage(id);
     }
 
-    // Delete an image by ID
-    @RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)
-    public void deleteImage(@PathVariable("id") Long id) {
+
+    @RequestMapping(value = "/delete/{id}" , method = RequestMethod.DELETE)
+    public void deleteImage(@PathVariable("id") Long id){
         imageService.deleteImage(id);
     }
-
-    // Update an existing image
-    @RequestMapping(value = "/update", method = RequestMethod.PUT)
-    public Image updateImage(@RequestParam("image") MultipartFile file) throws IOException {
-        return imageService.uploadImage(file);
+    @RequestMapping(value="/update",method = RequestMethod.PUT)
+    public Image UpdateImage(@RequestParam("image")MultipartFile file) throws IOException {
+        return imageService.uplaodImage(file);
     }
 
-    // Upload an image and associate it with a specific Cours by ID
-    @PostMapping(value = "/uploadImageCours/{idCours}")
-    public Image uploadMultiImages(@RequestParam("image") MultipartFile file,
-                                   @PathVariable("idCours") Long idCours) throws IOException {
-        return imageService.uploadImageCours(file, idCours);
+    @PostMapping(value = "/uplaodImageCours/{idCours}" )
+    public Image uploadMultiImages(@RequestParam("image")MultipartFile file,
+                                   @PathVariable("idCours") Long idCours)
+            throws IOException {
+        return imageService.uplaodImageCours(file,idCours);
     }
 
-    // Get all images associated with a specific Cours by ID
-    @RequestMapping(value = "/getImagesCours/{idCours}", method = RequestMethod.GET)
-    public List<Image> getImagesCours(@PathVariable("idCours") Long idCours) throws IOException {
+    @RequestMapping(value = "/getImagesCours/{idCours}" ,
+            method = RequestMethod.GET)
+    public List<Image> getImagesProd(@PathVariable("idCours") Long idCours)
+            throws IOException {
         return imageService.getImagesParCours(idCours);
     }
 
-    @PostMapping("/uploadFS/{idCours}")
-    public Cours uploadImageFS(@RequestParam("image") MultipartFile file,
-                               @PathVariable("idCours") Long idCours) throws IOException {
-        return imageService.updateCoursImage(file, idCours);
-    }
+
 }
